@@ -20,7 +20,7 @@
 class BLE {
 public:
 	BLE();  //Constructor for the BLE object
-	void TflyBLESetup (); //Initializes the BLE 
+	void TflyBLESetup (); //Initializes the BLE--use only in the setup loop
 	void beaconSendData(); //Tells the BLE beacon to send data typed into the serial monitor
 	String readIncoming(); //tells the BLE beacon to receive data sent from the RBL BLE app-->returns it as a string
 };
