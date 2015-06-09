@@ -1,38 +1,20 @@
-// TFLY_BLE_BEACON.cpp
+/*
+* TicketflyBLE.h by Michael Albinson
+* Based on the RBL nRF80001 library
+*/
 
 #include "TicketflyBLE.h"
 
 BLE::BLE (){
-	mockFlag = false;
 }
 
-BLE::BLE (bool enterMockFlag){
-	mockFlag = enterMockFlag;
-}
-
-void BLE::TflyBLESetup(){  //Use only in the setup loop  YEP
+void BLE::TflyBLESetup(){ 
   ble_set_name ("TFLY");
   ble_begin ();
   Serial.begin (57600);
 }
 
-void startBLEScan(){//Currently empty  YEP
-  while (ble_available()){
-    if (Serial.available())
-        Serial.println (F("do something"));
-    }
-    ble_do_events();
-}
-
-void clearParsingSetups(String stringToClear, char charArrayToClear[]){  //YEP
-  for (int i=0; i<CHARS_TO_READ; i++){
-    charArrayToClear[i] = 1;
-  }
-  stringToClear= "";
-  ble_do_events();
-}
-
-void beaconSendData(){ //YEP
+void beaconSendData(){ 
   int carrier;
   char sendCharArray[14];
   if (Serial.available()){
@@ -45,11 +27,7 @@ void beaconSendData(){ //YEP
   ble_do_events();
 }
 
-void beaconRequestInfo(){//currently empty
-	Serial.println (F("Nothing Here"));
-}
-
-String BLE::readIncoming(){ //No good way to significantly shorten this one--consider revising
+String BLE::readIncoming(){ 
   int i=0;
   char stringBase[CHARS_TO_READ];
 	for (int i=0; i<CHARS_TO_READ; i++){
