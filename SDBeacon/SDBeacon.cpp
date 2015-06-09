@@ -9,7 +9,7 @@
 TicketflySDBeacon::TicketflySDBeacon(){
 }
 
-void TicketflySDBeacon::SDBeaconSetup (SdFat& SD) {//Checked and good YEP
+void TicketflySDBeacon::SDBeaconSetup (SdFat& SD) {
 	Serial.begin (9600);
   Serial.print(F("Initializing SD card..."));
 	pinMode(10, OUTPUT);
@@ -22,7 +22,7 @@ void TicketflySDBeacon::SDBeaconSetup (SdFat& SD) {//Checked and good YEP
 
 }
 
-String TicketflySDBeacon::textFileSelect (){//Unused, probably fine YEP
+String TicketflySDBeacon::textFileSelect (){
 	int i = 0;
 	char stringBase [maxTitleSize];
 	String fileTitle;
@@ -40,7 +40,7 @@ String TicketflySDBeacon::textFileSelect (){//Unused, probably fine YEP
 	}
 }
 
-bool TicketflySDBeacon::searchDatabaseForTicket(String TicketString, SdFat& SD){ //No way to sensibly shorten
+bool TicketflySDBeacon::searchDatabaseForTicket(String TicketString, SdFat& SD){ 
 		File myFile;
 		const char* TicketNo = TicketString.c_str();
 		myFile = SD.open("example.txt");  
@@ -63,7 +63,7 @@ bool TicketflySDBeacon::searchDatabaseForTicket(String TicketString, SdFat& SD){
   }
 }
 
-void TicketflySDBeacon::writeToSD (String writeThisString, String fileName, SdFat& SD) { //No good way to sensibly shorten
+void TicketflySDBeacon::writeToSD (String writeThisString, String fileName, SdFat& SD) { 
 	File myFile;
 	const char* conversion = fileName.c_str();
 	Serial.println (conversion);
@@ -77,7 +77,7 @@ void TicketflySDBeacon::writeToSD (String writeThisString, String fileName, SdFa
   }
 }
 
-void TicketflySDBeacon::simpleReadSD (String fileName, SdFat& SD){ //No way to sensibly shorten
+void TicketflySDBeacon::simpleReadSD (String fileName, SdFat& SD){ 
 	File myFile;
 	const char* conversion = fileName.c_str();
 	myFile = SD.open(conversion, FILE_READ);
@@ -94,7 +94,7 @@ void TicketflySDBeacon::simpleReadSD (String fileName, SdFat& SD){ //No way to s
 	 }
 }
 
-void TicketflySDBeacon::fileRemove (String fileName, SdFat& SD) { //YEP
+void TicketflySDBeacon::fileRemove (String fileName, SdFat& SD) { 
 	File myFile;
 	const char* conversion = fileName.c_str();
   myFile = SD.open(conversion);
@@ -112,7 +112,7 @@ bool TicketflySDBeacon::ticketCompare (String searchFor, String compareToThis) {
   }
 }
 
-String TicketflySDBeacon::TicketInfoParser (String TicketString, int typeReturn){ //difficult to break up, consider
+String TicketflySDBeacon::TicketInfoParser (String TicketString, int typeReturn){ 
   String TicketNumberRetrieve = "", TicketNameRetrieve = "", TicketTypeRetrieve = "";
   int lengthString, commaIndex1, commaIndex2;
   TicketString.replace(" ", "");
