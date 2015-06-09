@@ -25,8 +25,8 @@ bool MockFile :: read(){
 	return true;
 }
 
-bool MockFile :: read (const char* interest, int that){
-	return true;
+const char* MockFile :: read (const char* interest, int that){
+	return interest;
 }
 
 bool MockFile :: close (){
@@ -37,8 +37,8 @@ bool MockFile :: available() {
 	return true;
 }
 
-bool MockFile :: println(String lineToPrint){
-	return true;
+String MockFile :: println(String lineToPrint){
+	return lineToPrint;
 }
 
 MockSdFat :: MockSdFat(){
@@ -197,6 +197,16 @@ const char* MockBLE_write (int carrier, int &i){
 		return charArray;
 }
 
+bool ble_begin(){
+	Serial.println("HAH");
+	return true;
+}
+
+bool ble_set_name (String name){
+	Serial.println("HAH");
+	return true;
+}
+
 MockBLE::MockBLE (){
 }
 
@@ -204,7 +214,7 @@ void MockBLE::TflyBLESetup(){  //Use only in the setup loop  YEP
   ble_set_name ("TFLY");
   ble_begin ();
   //Serial.begin (57600);
-	TestTrue ("The ble setup", true);
+  TestTrue ("The ble setup", true);
 }
 
 void MockBLE::clearParsingSetups(String stringToClear, char charArrayToClear[]){
