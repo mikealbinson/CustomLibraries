@@ -41,5 +41,12 @@ This library assumes some knowledge of the actual libraries that these mock obje
 *Based heavily on the MockFile class, the MockSdFat class and on my SDBeacon function set.
 
 #### MockOLED Class
+| Function Name        | Description                          | Input Arguments (if any)                                                                                | Output Arguments (if any) |
+|----------------------|--------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------|
+| MockOLED();          | Constructor for the MockOLED class.  | N/A                                                                                                     | N/A                       |
+| MockPrintToOLED();   | A mock print function                | String printThis: the string to print                                                                   | True                      |
+| setColorIndexMock(); | A mock index setting function        | int type: The kind of color index to use, represented in the actual U8g library as a literal constant   | True                      |
+| drawSetupMock();     | A mock drawSetup function            | MockOLED& obj: the OLED object you want to print to.                                                    | True                      |
+| drawGeneralMock();   | A mock drawGeneral function          | String stringToPrint: The string you want printed. MockOLED& obj: the OLED object you want to print to. | True                      |
 
 #### MockBLE Class
