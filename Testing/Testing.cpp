@@ -1,3 +1,9 @@
+/* Testing.cpp
+* Written by Michael Albinson
+*
+*/
+
+
 #include "Testing.h"
 
 void success (String testName){
