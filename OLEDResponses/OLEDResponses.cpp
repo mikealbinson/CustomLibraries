@@ -1,10 +1,11 @@
-#include "OLEDResponses.h"
+/*
+* OLEDResponses.cpp by Michael Albinson
+* See OLEDResponses.h for function descriptions
+*/
 
-const char* stringToChar (String desiredText) {
-  const char* conversion;
-  conversion = desiredText.c_str();
-  return conversion;
-}
+
+
+#include "OLEDResponses.h"
 
 OLED::OLED () {
 	u8g = new U8GLIB_SSD1306_128X32(U8G_I2C_OPT_NONE);
@@ -12,50 +13,34 @@ OLED::OLED () {
 	u8g->setColorIndex(1);
 }
 
-OLED::OLED(bool TestSwitch) { //creates mockOLED object if input is true
-  if (TestSwitch == true) 
-	{
-    MOCKu8g = new U8GLIB_SSD1306_128X32MOCK(U8G_I2C_OPT_NONE);
-    MOCKu8g->getMode() == U8G_MODE_BW;
-    MOCKu8g->setColorIndex(1);
-  }
-  else {
-		OLED ();
-  }
-}
-
-const char* OLED::drawGeneral(String stringToPrint) {
+void OLED::drawGeneral(String stringToPrint) {
 	const char* conversion;
-	const char* smaller;
   conversion = stringToPrint.c_str();
   u8g->firstPage();
   do {
 		u8g->setFont(u8g_font_unifont);
-		smaller = u8g->drawStr( 0, 22, conversion);  
+		u8g->drawStr( 0, 22, conversion);  
 } while ( u8g->nextPage() );
   delay(1000);
-  //Serial.println(smaller); //interior function check
-	return smaller;
+  //Serial.println(conversion); //interior function check
 }
 
-const char* OLED::drawGeneral(String stringToPrint, int delayThisLong) {
+void OLED::drawGeneral(String stringToPrint, int delayThisLong) {
 	const char* conversion;
-	const char* smaller;
   conversion = stringToPrint.c_str();
   u8g->firstPage();
   do {
 		u8g->setFont(u8g_font_unifont);
-		smaller = u8g->drawStr( 0, 22, conversion);  
+		u8g->drawStr( 0, 22, conversion);  
     }
    while ( u8g->nextPage() );
-   delay(delayThisLong);
-  //Serial.println(smaller); //interior function check
-	return smaller;
+   delay(delayThisLong*1000);
+  //Serial.println(conversion); //interior function check
 }
 
-void OLED::makeBitmap (){
+void OLED::drawTicketflyLogo (){
 	static unsigned char TicketflyWHITELogoBits[] U8G_PROGMEM = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -122,7 +107,6 @@ void OLED::makeBitmap (){
 }
 
 void OLED::drawSetup() {
-	//const char* final;
   u8g->firstPage();
   do {
     u8g->setFont(u8g_font_unifont);
@@ -130,7 +114,3 @@ void OLED::drawSetup() {
   } while ( u8g->nextPage() );
   delay(3000);
 }
-
-//Still hoping to include a bitmap fxn at some point if I can figure out how to get a bitmap in the proper format
-
-//Done Shortening --Start Testing tomorrow
