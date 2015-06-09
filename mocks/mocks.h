@@ -10,7 +10,7 @@
 
 #define CHARS_TO_READ 14
 
-void testingScenario ();
+void testingScenario (); //These two are used to run through the scenario posed in the example.ino sketch
 void endOfScenario ();
 
 class MockFile{
