@@ -1,7 +1,6 @@
-
 /*
-*
-*SDBeaconFunctionsRevised.cpp
+* SDBeacon.cpp By Michael Albinson
+* Based on the SdFat library
 *
 */
 
@@ -10,7 +9,7 @@
 TicketflySDBeacon::TicketflySDBeacon(){
 }
 
-void SDBeaconSetup (SdFat& SD) {//Checked and good YEP
+void TicketflySDBeacon::SDBeaconSetup (SdFat& SD) {//Checked and good YEP
 	Serial.begin (9600);
   Serial.print(F("Initializing SD card..."));
 	pinMode(10, OUTPUT);
@@ -23,7 +22,7 @@ void SDBeaconSetup (SdFat& SD) {//Checked and good YEP
 
 }
 
-String textFileSelect (){//Unused, probably fine YEP
+String TicketflySDBeacon::textFileSelect (){//Unused, probably fine YEP
 	int i = 0;
 	char stringBase [maxTitleSize];
 	String fileTitle;
@@ -41,7 +40,79 @@ String textFileSelect (){//Unused, probably fine YEP
 	}
 }
 
-String TicketInfoParser (String TicketString, int typeReturn){ //difficult to break up, consider
+bool TicketflySDBeacon::searchDatabaseForTicket(String TicketString, SdFat& SD){ //No way to sensibly shorten
+		File myFile;
+		const char* TicketNo = TicketString.c_str();
+		myFile = SD.open("example.txt");  
+		if (myFile) {
+    	char buf[16];
+    	myFile.read(buf, 16);
+    	if (strncmp(buf, TicketNo, 14) == 0)
+    	{
+      	Serial.println(F("Match!"));
+      	return true;
+    	}
+    	else {
+				Serial.println (F("No Match"));
+      	return false;
+    	}
+    myFile.close();
+  }
+	else {
+	Serial.println(F("error opening file"));
+  }
+}
+
+void TicketflySDBeacon::writeToSD (String writeThisString, String fileName, SdFat& SD) { //No good way to sensibly shorten
+	File myFile;
+	const char* conversion = fileName.c_str();
+	Serial.println (conversion);
+	myFile = SD.open(conversion);
+  if (myFile) {
+    myFile.println(writeThisString);
+    myFile.close();
+  } 
+	else {
+    Serial.println(F("error opening example.txt"));
+  }
+}
+
+void TicketflySDBeacon::simpleReadSD (String fileName, SdFat& SD){ //No way to sensibly shorten
+	File myFile;
+	const char* conversion = fileName.c_str();
+	myFile = SD.open(conversion, FILE_READ);
+	if (myFile) {
+	  while (myFile.available()) {
+	    Serial.write(myFile.read());
+	  }
+	  myFile.close();
+	} 
+	else 
+	{
+	    Serial.print(F("Error opening "));
+			Serial.println (fileName);
+	 }
+}
+
+void TicketflySDBeacon::fileRemove (String fileName, SdFat& SD) { //YEP
+	File myFile;
+	const char* conversion = fileName.c_str();
+  myFile = SD.open(conversion);
+  SD.remove(conversion);
+}
+
+bool TicketflySDBeacon::ticketCompare (String searchFor, String compareToThis) {
+  const char * conversion1 = searchFor.c_str();
+  const char * conversion2 = compareToThis.c_str();
+  if (strcmp (conversion1, conversion2) == 0) {
+    return true;
+  }
+  else {
+   return false;
+  }
+}
+
+String TicketflySDBeacon::TicketInfoParser (String TicketString, int typeReturn){ //difficult to break up, consider
   String TicketNumberRetrieve = "", TicketNameRetrieve = "", TicketTypeRetrieve = "";
   int lengthString, commaIndex1, commaIndex2;
   TicketString.replace(" ", "");
@@ -68,101 +139,7 @@ String TicketInfoParser (String TicketString, int typeReturn){ //difficult to br
     }
 }
 
-bool ticketCompare (String searchFor, const char* compareToThis) {
-  const char * conversion = searchFor.c_str();
-  if (strcmp (conversion, compareToThis) == 0) {
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
-bool ticketCompare (const char* searchFor, String compareToThis) {
-  const char * conversion = compareToThis.c_str();
-	Serial.println (conversion);
-	Serial.println (searchFor);
-  if (strcmp (conversion, searchFor) == 0) {
-    return true;
-  }
-  else {
-   return false;
-  }
-}
-
-bool ticketCompare (String searchFor, String compareToThis) {
-  const char * conversion1 = searchFor.c_str();
-  const char * conversion2 = compareToThis.c_str();
-  if (strcmp (conversion1, conversion2) == 0) {
-    return true;
-  }
-  else {
-   return false;
-  }
-}
-
-bool searchDatabaseForTicket(String TicketString, SdFat& SD){ //No way to sensibly shorten
-		File myFile;
-		const char* TicketNo = TicketString.c_str();
-		myFile = SD.open("test.txt");  
-		if (myFile) {
-    	char buf[16];
-    	myFile.read(buf, 16);
-    	if (strncmp(buf, TicketNo, 14) == 0)
-    	{
-      	Serial.println(F("Match!"));
-      	return true;
-    	}
-    	else {
-				Serial.println ("No Match");
-      	return false;
-    	}
-    myFile.close();
-  }
-	else {
-	Serial.println(F("error opening file"));
-  }
-}
-
-void writeToSD (String writeThisString, String fileName, SdFat& SD) { //No good way to sensibly shorten
-	File myFile;
-	const char* conversion = fileName.c_str();
-	Serial.println (conversion);
-	myFile = SD.open(conversion);
-  if (myFile) {
-    myFile.println(writeThisString);
-    myFile.close();
-  } 
-	else {
-    Serial.println(F("error opening example.txt"));
-  }
-}
-
-void simpleReadSD (String fileName, SdFat& SD){ //No way to sensibly shorten
-	File myFile;
-	const char* conversion = fileName.c_str();
-	myFile = SD.open(conversion, FILE_READ);
-	if (myFile) {
-	  while (myFile.available()) {
-	    Serial.write(myFile.read());
-	  }
-	  myFile.close();
-	} 
-	else 
-	{
-	    Serial.print(F("Error opening "));
-			Serial.println (fileName);
-	 }
-}
-
-void fileRemove (String fileName, SdFat& SD) { //YEP
-	File myFile;
-	const char* conversion = fileName.c_str();
-  myFile = SD.open(conversion);
-  SD.remove(conversion);
-}
-
-String parseTextLines (String TicketRecieved, int receiveType, SdFat& SD) {
+String TicketflySDBeacon:: parseTextLines (String TicketRecieved, int receiveType, SdFat& SD, TicketflySDBeacon& SDB) {
   char line[50]; //max 50 char/line 
 	int lineIndex = 0;
   int n;
@@ -179,9 +156,9 @@ String parseTextLines (String TicketRecieved, int receiveType, SdFat& SD) {
       Serial.println (TicketInfoParser (line, 1));
       */
       lineIndex++;
-      carrier = TicketInfoParser (line, receiveType);
-      if (ticketCompare(TicketRecieved, carrier)){
-        //Serial.println ("Match");
+      carrier = TicketInfoParser (line, 1);
+      if (SDB.ticketCompare(TicketRecieved, carrier)){
+        Serial.println ("Match");
         return TicketInfoParser (line, receiveType);
       }
     } 
