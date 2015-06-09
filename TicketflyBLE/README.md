@@ -17,3 +17,4 @@ You will also need an RBL nRF8001 bluetooth low energy shield for arduino.
 ===================================
 ####Notes:
 1. This library is intended for use with the nRF8001 shield only. I have no idea if this will work with anything else and make no promises.
+2. This library is brief and will continue to be expanded upon over time.
