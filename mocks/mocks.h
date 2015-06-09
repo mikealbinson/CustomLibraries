@@ -71,8 +71,8 @@ private:
 	bool ble_available = true; //let's assume we're costantly connected
 	char MockBLE_Read(int &i); // an interior read method that allows for simulated reading
 	const char* MockBLE_write (int carrier, int &i); // an interior method for simulated writing
-	bool ble_begin();
-	bool ble_set_name (String name);
+	bool ble_begin(); //interior mock begin method
+	bool ble_set_name (String name); //interior mock set name method
 	
 };
 
