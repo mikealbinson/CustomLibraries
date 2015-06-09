@@ -4,9 +4,7 @@
 #include "arduino.h"
 #include <U8gLibClone.h>
 #include <Testing.h>
-#include <SPI.h>
-#include <boards.h>
-#include <RBL_LibCLONE.h>
+
 
 #define CHARS_TO_READ 14
 
@@ -17,9 +15,9 @@ class MockFile{
 public:
 	MockFile(); //Constructor for the mockFile class
 	bool read(); //a read function that evuates to true
-	bool read (const char* interest, int that); // a secondary read function that returns the char array
+	const char* read (const char* interest, int that); // a secondary read function that returns the char array
 	bool close(); //a close function mock up that evaluates to true
-	bool println(String lineToPrint); //a println mock function that returns the string printed
+	String println(String lineToPrint); //a println mock function that returns the string printed
 	bool available(); //a mock available function that evaluates to true
 	
 private:
@@ -70,9 +68,11 @@ public:
 	String readIncoming();//a mock receive function for the BLE
 	
 private:
-	int ble_available = true; //let's assume we're costantly connected
+	bool ble_available = true; //let's assume we're costantly connected
 	char MockBLE_Read(int &i); // an interior read method that allows for simulated reading
 	const char* MockBLE_write (int carrier, int &i); // an interior method for simulated writing
+	bool ble_begin();
+	bool ble_set_name (String name);
 	
 };
 
