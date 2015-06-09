@@ -4,6 +4,8 @@ This is where I'll try to keep all the libraries I use current--I'll update at t
 
 #####I have written READMEs for the five main libraries I have written for this project. They can be found within their respective folders.
 
+(The five are mocks, OLEDResponses, TicketflyBLE, SDBeacon and Testing)
+
 See note below for information on Mod/Clone libraries.
 
 -----------------------------------------------------
