@@ -3,7 +3,7 @@
 
 
 ##In order to use, you must:
-1. Have the U8gMod library included from this repository
+1. Have the U8gMod library included in your main .ino file from this repository
 2. Have a Adafruit SSD1306 or similar -- this may be changed if necesary, but the library is designed for this type of display
 
 ## Function Documentation 
