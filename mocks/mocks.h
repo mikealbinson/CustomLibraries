@@ -17,9 +17,9 @@ class MockFile{
 public:
 	MockFile(); //Constructor for the mockFile class
 	bool read(); //a read function that evuates to true
-	const char* read (const char* interest, int that); // a secondary read function that evaluates to true
+	bool read (const char* interest, int that); // a secondary read function that returns the char array
 	bool close(); //a close function mock up that evaluates to true
-	String println(String lineToPrint); //a println mock function that returns the string printed
+	bool println(String lineToPrint); //a println mock function that returns the string printed
 	bool available(); //a mock available function that evaluates to true
 	
 private:
@@ -54,11 +54,11 @@ class MockOLED{
 		
 	
   public:
-		int MockPrintToOLED (String printThis); // a mock print function for the OLED
-		int setColorIndexMock(int type); // a mock setIndex function for the OLED
-  	MockOLED(); //Constructor for the MockOLED class
-		void drawSetupMock(MockOLED &obj); //a mock setup function for the OLED
-  	const char* drawGeneralMock(String stringToPrint, MockOLED &obj); // a mock general draw function for the OLED
+		bool MockPrintToOLED (String printThis); // a mock print function for the OLED
+		bool setColorIndexMock(int type); // a mock setIndex function for the OLED
+  		MockOLED(); //Constructor for the MockOLED class
+		void drawSetupMock(MockOLED& obj); //a mock setup function for the OLED
+  		bool drawGeneralMock(String stringToPrint, MockOLED& obj); // a mock general draw function for the OLED
 };
 
 class MockBLE {
