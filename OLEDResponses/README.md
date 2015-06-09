@@ -17,4 +17,4 @@
 
 ##Customization
 --------------------
-I don't personally support any customization of display in this library, it could be done by copying the desired display from any of the U8gLib examples into the private section where the SSD1306 is designated and also into the OLED constructor, but like I said, this is designed for the SSD1306, so no promises on any custom libraries. 
+I don't personally support any customization of display in this library, it could be done by copying the desired display from any of the U8gLib examples into the private section where the SSD1306 is designated and also into the OLED constructor, but like I said, this is designed for the SSD1306, so no promises on any customizations. 
