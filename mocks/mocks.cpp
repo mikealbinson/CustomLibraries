@@ -25,8 +25,8 @@ bool MockFile :: read(){
 	return true;
 }
 
-const char* MockFile :: read (const char* interest, int that){
-	return readerString.c_str();
+bool MockFile :: read (const char* interest, int that){
+	return true;
 }
 
 bool MockFile :: close (){
@@ -37,8 +37,8 @@ bool MockFile :: available() {
 	return true;
 }
 
-String MockFile :: println(String lineToPrint){
-	return lineToPrint;
+bool MockFile :: println(String lineToPrint){
+	return true;
 }
 
 MockSdFat :: MockSdFat(){
@@ -151,13 +151,12 @@ void MockSDBeacon::fileRemove (String fileName, MockSdFat& SD, MockFile& myFile)
 /*********************************************************/
 /******************MockOLED imp***************************/
 /*********************************************************/
-int MockOLED::MockPrintToOLED (String printThis){
-	return 1; //if true... which I guess is true every time
+bool MockOLED::MockPrintToOLED (String printThis){
+	return true; //if done
 }
 
-int MockOLED::setColorIndexMock (int type){
-	int happy = type;
-	return 1; //if done
+bool MockOLED::setColorIndexMock (int type){
+	return true; //if done
 }
 
 MockOLED::MockOLED () {
@@ -170,17 +169,16 @@ MockOLED::MockOLED () {
 void MockOLED::drawSetupMock(MockOLED& obj) {
 	//Serial.begin (9600); //alternately comment out if using more than one setup function
 	TestTrue ("The OLED is setup", obj.exists);
-	int printed = obj.MockPrintToOLED ("Setting Up"); //There's an interior method here that interacts with the OLED
-	TestEqual ("drawSetup Print Check", printed, 1 );
+	bool printed = obj.MockPrintToOLED ("Setting Up"); //There's an interior method here that interacts with the OLED
+	TestTrue ("drawSetup Print Check", printed);
 }
 
-const char* MockOLED::drawGeneralMock(String stringToPrint,MockOLED& obj) {
+bool MockOLED::drawGeneralMock(String stringToPrint,MockOLED& obj) {
 	const char* conversion;
-	const char* smaller;
-  conversion = stringToPrint.c_str();
-	int printed = obj.MockPrintToOLED (conversion); //There's an interior method here that interacts with the OLED directly and that needed to be changed
-	TestEqual ("The ticket type display on the OLED", printed, 1 );
-	return conversion;
+    conversion = stringToPrint.c_str();
+	bool printed = obj.MockPrintToOLED (conversion); //There's an interior method here that interacts with the OLED directly and that needed to be changed
+	TestTrue ("The ticket type display on the OLED", printed);
+	return true; //if done
 }
 
 /*********************************************************/
