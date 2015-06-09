@@ -57,3 +57,5 @@ This library assumes some knowledge of the actual libraries that these mock obje
 | clearParsingSetups(); | The mock BLE clear function         | String stringToClear: a string variable you want emptied. char charArrayToClear: A char array you want cleared. | N/A                                        |
 | beaconSendData();     | The mock BLE send function          | N/A                                                                                                             | N/A                                        |
 | readIncoming();       | The mock BLE read function          | N/A                                                                                                             | String of what was (mock) read off the BLE |
+
+####Also includes MockTesting.ino, an example to demonstrate the virtual nature of the library
