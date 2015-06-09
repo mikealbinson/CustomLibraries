@@ -1,10 +1,10 @@
 #TicketflyBLE
 To use this library you will need to download and include:
-the RBL_LibCLONE library
-boards.h
-SPI.h //no need to download this, it is in arduino's default library, just include it in your sketch
+1. the RBL_LibCLONE library
+2. boards.h
+3. SPI.h //no need to download this, it is in arduino's default library, just include it in your sketch
 
-
+You will also need an RBL nRF8001 bluetooth low energy shield for arduino. 
 
 ##Function Descriptions
 | Function Name     | Description                                                                                                                                                                                                                            | Input Arguments (if any)                                                     | Output Arguments (if any) | Other Important Info                                                                                                         |
@@ -14,5 +14,6 @@ SPI.h //no need to download this, it is in arduino's default library, just inclu
 | beaconSendData(); | Tells the beacon to send the data inputted through the serial monitor or as indicated in the function call.                                                                                                                            | String, either through the serial monitor or indicated in the function call. | N/A                       | N/A                                                                                                                          |
 | readIncoming();   | Reads incoming data to the BLE and outputs that information as a string.                                                                                                                                                               | N/A                                                                          | N/A                       | N/A                                                                                                                          |
 
+===================================
 ####Notes:
-1. 
+1. This library is intended for use with the nRF8001 shield only. I have no idea if this will work with anything else and make no promises.
